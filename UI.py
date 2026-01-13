@@ -1,0 +1,64 @@
+import customtkinter as ctk
+import threading
+import logic
+
+
+
+class VideoDownloaderApp(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Video Downloader")
+        self.geometry("850x650")
+        self.grid_columnconfigure(0, weight=1)
+
+        self.label_title = ctk.CTkLabel(self, text = "Link eingeben")
+        self.label_title.grid(row=0, column=0, pady=20)
+
+        self.entry_link = ctk.CTkEntry(self, width=400)
+        self.entry_link.grid(row=1, column=0, pady=20)
+
+        self.button_download = ctk.CTkButton(self, text="Download", command=self.start_download)
+        self.button_download.grid(row=2, column=0, pady=20)
+
+        self.label_status = ctk.CTkLabel(self, text="Warte auf Link...")
+        self.label_status.grid(row=3, column=0, pady=10)
+
+        self.progress_bar = ctk.CTkProgressBar(self, width=400)
+        self.progress_bar.set(0)
+        self.progress_bar.grid(row=4, column=0, pady=10)
+
+
+    def start_download(self):
+        link = self.entry_link.get()
+
+        if link == "":
+            print("Kein Link eingegeben")
+            return
+
+        worker_thread = threading.Thread(target=self.background_task, args=(link,))
+
+        worker_thread.start()
+
+    def background_task(self, link):
+        print("background downloading is starting")
+        logic.run_download(link, self.show_progress)
+        print("Download fertig!")
+
+    def show_progress(self, stream_data):
+        if stream_data['status'] == 'downloading':
+            data_str = stream_data.get('_percent_str')
+            data_str = data_str.replace("%", "")
+            data_float = float(data_str)
+            data_float /= 100
+            print(f'Lade {data_float}')
+
+            self.label_status.configure(text=f"{data_str}%")
+
+            self.progress_bar.set(data_float)
+
+
+            
+    
+
+        #print(f"Der Button wurde geklickt! Link ist: {link}")
