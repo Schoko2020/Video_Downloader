@@ -1,0 +1,15 @@
+# trash
+__pycache__/
+*.py[cod]
+.venv/
+
+# PyCharm trash
+.idea/
+
+# Build Ordner (exe)
+build/
+dist/
+*.spec
+
+# Linux
+bin/
