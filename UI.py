@@ -56,7 +56,11 @@ class VideoDownloaderApp(ctk.CTk):
             data_float /= 100
             print(f'Lade {data_float}')
 
-            self.label_status.configure(text=f"{data_str}%")
+            if data_float != 1:
+                self.label_status.configure(text=f"{data_str}%")
+
+            if data_float == 1:
+                self.label_status.configure(text="Fertig!")
 
             self.progress_bar.set(data_float)
 
