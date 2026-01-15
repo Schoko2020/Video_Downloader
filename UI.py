@@ -28,6 +28,9 @@ class VideoDownloaderApp(ctk.CTk):
         self.progress_bar.set(0)
         self.progress_bar.grid(row=4, column=0, pady=10)
 
+        self.button_update = ctk.CTkButton(self, text="yt-dlp Update", command=self.start_update, width=100)
+        self.button_update.grid(row=5, column=0, pady=600)
+
 
     def start_download(self):
         link = self.entry_link.get()
@@ -56,6 +59,18 @@ class VideoDownloaderApp(ctk.CTk):
             self.label_status.configure(text=f"{data_str}%")
 
             self.progress_bar.set(data_float)
+
+    def start_update(self):
+         self.label_status.configure(text="Suche Updates...")
+         update_thread = threading.Thread(target=self.run_update_process)
+         update_thread.start()
+
+    def run_update_process(self):
+         success = logic.update_yt_dlp()
+         if success:
+            self.label_status.configure(text="Update fertig! Bitte Neustarten.")
+         else:
+            self.label_status.configure(text="Update fehlgeschlagen.")
 
 
             
