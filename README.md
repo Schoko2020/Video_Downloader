@@ -1,9 +1,9 @@
 Update regelmäßig dein ffmpeg
 
-Windows (Powershell):
+Windows (Powershell): 
 winget upgrade ffmpeg
 
-Linux:
+Linux: 
 sudo apt update
 sudo apt upgrade
 
