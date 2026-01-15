@@ -9,7 +9,7 @@ def run_download(link, progress_func):
 
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
-        'outtmpl': '%(title)s.%(ext)s',
+        'outtmpl': target_file,
         'progress_hooks': [progress_func],
         'nocheckcertificate': True,
         'no_color': True,
