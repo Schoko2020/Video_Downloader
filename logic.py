@@ -1,5 +1,7 @@
 import yt_dlp
 import os
+import subprocess
+import sys
 
 def run_download(link, progress_func):
 
@@ -17,3 +19,13 @@ def run_download(link, progress_func):
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([link])
+
+def update_yt_dlp():
+    try:
+        print("Starte Update von yt-dlp")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "yt-dlp"])
+        return True
+
+    except Exception as e:
+        print(f"Update fehlgeschlagen: {e}")
+        return False
