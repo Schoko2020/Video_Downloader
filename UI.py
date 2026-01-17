@@ -10,6 +10,12 @@ class VideoDownloaderApp(ctk.CTk):
 
         self.title("Video Downloader")
         self.geometry("850x650")
+
+        try:
+            self.iconbitmap("icon.ico")
+        except:
+            pass
+
         self.grid_columnconfigure(0, weight=1)
 
         self.label_title = ctk.CTkLabel(self, text = "Link eingeben")
